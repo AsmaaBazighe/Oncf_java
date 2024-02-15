@@ -10,7 +10,7 @@ public class Connexion {
             return con.createStatement();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
-            return null; // You might want to handle the error more gracefully based on your application's requirements
+            return null; 
         }
     }
     
