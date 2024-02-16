@@ -36,7 +36,7 @@ public class Payement {
         
         final JTextField user = new JTextField();
         user.setColumns(10);
-        final JTextField psw = new JTextField();
+        final JPasswordField psw = new JPasswordField();
         psw.setColumns(10);
         JButton submitButton = new JButton("Soumettre");
         GoTo.ticket(submitButton,user,psw,data,gareDepart,gareArrivee,date,prix);
