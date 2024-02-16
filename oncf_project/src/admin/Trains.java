@@ -49,32 +49,31 @@ public class Trains {
             JButton modifierButton = new JButton("Modifier");
             JButton supprimerButton = new JButton("Supprimer");
 
-            // Ajouter des ActionListener pour chaque bouton
+            
             
             modifierButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int rowIndex = table.getSelectedRow();
                     if (rowIndex != -1) {
-                        String gareDepart = data[rowIndex][0];
-                        String gareArrivee = data[rowIndex][1];
-                        String date = data[rowIndex][2];
-                        String prix = data[rowIndex][3];
+                        String ancienneGareDepart = data[rowIndex][0];
+                        String ancienneGareArrivee = data[rowIndex][1];
+                        String ancienneDate = data[rowIndex][2];
+                        int ancienPrix = Integer.parseInt(data[rowIndex][3]);
 
-                        // Display input dialogs to get new values for the journey details
-                        String newGareDepart = JOptionPane.showInputDialog(null, "Entrez la nouvelle gare de départ :", gareDepart);
-                        String newGareArrivee = JOptionPane.showInputDialog(null, "Entrez la nouvelle gare d'arrivée :", gareArrivee);
-                        String newDate = JOptionPane.showInputDialog(null, "Entrez la nouvelle date :", date);
-                        String newPrix = JOptionPane.showInputDialog(null, "Entrez le nouveau prix :", prix);
+                        // Afficher les boîtes de dialogue pour obtenir les nouvelles valeurs des détails du trajet
+                        String newGareDepart = JOptionPane.showInputDialog(null, "Entrez la nouvelle gare de départ :", ancienneGareDepart);
+                        String newGareArrivee = JOptionPane.showInputDialog(null, "Entrez la nouvelle gare d'arrivée :", ancienneGareArrivee);
+                        String newDate = JOptionPane.showInputDialog(null, "Entrez la nouvelle date :", ancienneDate);
+                        int newPrix = Integer.parseInt(JOptionPane.showInputDialog(null, "Entrez le nouveau prix :", ancienPrix));
 
-                        // Check if all fields are filled and not empty
-                        if (newGareDepart != null && newGareArrivee != null && newDate != null && newPrix != null &&
-                            !newGareDepart.isEmpty() && !newGareArrivee.isEmpty() && !newDate.isEmpty() && !newPrix.isEmpty()) {
+                        // Vérifier si tous les champs sont remplis et non vides
+                        if (newGareDepart != null && newGareArrivee != null && newDate != null &&
+                            !newGareDepart.isEmpty() && !newGareArrivee.isEmpty() && !newDate.isEmpty()) {
                             
-                            // Parse the new price to integer
-                            int newPrice = Integer.parseInt(newPrix);
-                            // Call the method to modify the journey in the database
-                            Connexion.modifierTrajet(newGareDepart, newGareArrivee, newDate, newPrice);
+                            // Appeler la méthode pour modifier le trajet dans la base de données
+                            Connexion.modifierTrajet(ancienneGareDepart, ancienneGareArrivee, ancienneDate, ancienPrix,
+                                                      newGareDepart, newGareArrivee, newDate, newPrix);
                             JOptionPane.showMessageDialog(null, "Trajet modifié avec succès.");
                         } else {
                             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs.");
@@ -84,7 +83,10 @@ public class Trains {
                     }
                 }
             });
-            
+
+
+
+
             ajouterButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -94,14 +96,15 @@ public class Trains {
                     String date = JOptionPane.showInputDialog(null, "Entrez la date :");
                     String prix = JOptionPane.showInputDialog(null, "Entrez le prix :");
 
-                    // Check if all fields are filled and not empty
+                   
                     if (gareDepart != null && gareArrivee != null && date != null && prix != null &&
                         !gareDepart.isEmpty() && !gareArrivee.isEmpty() && !date.isEmpty() && !prix.isEmpty()) {
                         
-                        // Parse the price to integer
+                       
                         int newPrice = Integer.parseInt(prix);
-                        // Call the method to add the new journey to the database
+                        
                         Connexion.ajouterTrajet(gareDepart, gareArrivee, date, newPrice);
+                        
                         JOptionPane.showMessageDialog(null, "Trajet ajouté avec succès.");
                     } else {
                         JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs.");
@@ -112,7 +115,7 @@ public class Trains {
             supprimerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Récupérer l'index de la ligne sélectionnée
+                    
                     int rowIndex = table.getSelectedRow();
                     if (rowIndex != -1) {
                         String gareDepart = data[rowIndex][0];
