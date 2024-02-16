@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Login {
 	
     public static JPanel window() {
-        JFrame f = new JFrame();
+        
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
         Styles.bgColor(mainPanel);
