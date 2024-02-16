@@ -10,9 +10,7 @@ public class Connexion {
             return con.createStatement();
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
-<<<<<<< HEAD
-            return null;
-=======
+
             return null; 
         }
     }
@@ -97,7 +95,7 @@ public class Connexion {
             System.out.println("Carte de réduction supprimée avec succès.");
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression de la carte de réduction : " + e.getMessage());
->>>>>>> 323a583859bcac9d3e5aae7be4e39afca1249a5f
+
         }
     }
 }
