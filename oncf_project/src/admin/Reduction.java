@@ -31,6 +31,7 @@ public class Reduction {
                 // Stocker les données dans le tableau
                 data[rowCount][0] = carte;
                 data[rowCount][1] = code;
+                data[rowCount][2] = pourcentage;
 
                 rowCount++;
             }
@@ -50,19 +51,21 @@ public class Reduction {
                 public void actionPerformed(ActionEvent e) {
                     int rowIndex = table.getSelectedRow();
                     if (rowIndex != -1) {
-                        String carte = data[rowIndex][0];
-                        String codeAdherent = data[rowIndex][1];
-                        String pourcentage = data[rowIndex][2];
- 
-                        String newCarte = JOptionPane.showInputDialog(null, "Entrez la nouvelle carte de réduction :", carte);
-                        String newCodeAdherent = JOptionPane.showInputDialog(null, "Entrez le nouveau code adhérent :", codeAdherent);
-                        String newPourcentage = JOptionPane.showInputDialog(null, "Entrez le nouveau pourcentage :", pourcentage);
+                        String ancienneCarte = data[rowIndex][0];
+                        int ancienCodeAdherent = Integer.parseInt(data[rowIndex][1]);
+                        int ancienPourcentage = Integer.parseInt(data[rowIndex][2]);
 
-                        if (newCarte != null && newCodeAdherent != null && newPourcentage != null &&
-                                !newCarte.isEmpty() && !newCodeAdherent.isEmpty() && !newPourcentage.isEmpty()) {
-                            int newPercentage = Integer.parseInt(newPourcentage);
-                            int newCode = Integer.parseInt(newCodeAdherent);
-                            Connexion.modifierCarteReduction(newCarte, newCode, newPercentage);
+                        String nouvelleCarte = JOptionPane.showInputDialog(null, "Entrez la nouvelle carte de réduction :", ancienneCarte);
+                        String newCodeAdherentStr = JOptionPane.showInputDialog(null, "Entrez le nouveau code adhérent :", ancienCodeAdherent);
+                        String newPourcentageStr = JOptionPane.showInputDialog(null, "Entrez le nouveau pourcentage :", ancienPourcentage);
+
+                        if (nouvelleCarte != null && newCodeAdherentStr != null && newPourcentageStr != null &&
+                                !nouvelleCarte.isEmpty() && !newCodeAdherentStr.isEmpty() && !newPourcentageStr.isEmpty()) {
+                            int nouveauCodeAdherent = Integer.parseInt(newCodeAdherentStr);
+                            int nouveauPourcentage = Integer.parseInt(newPourcentageStr);
+                            Connexion.modifierCarteReduction(ancienneCarte, ancienCodeAdherent, ancienPourcentage, nouvelleCarte, nouveauCodeAdherent, nouveauPourcentage);
+                            // Rafraîchir la page pour afficher les modifications
+                            window(); // Si la méthode window est statique dans la classe Trains
                             JOptionPane.showMessageDialog(null, "Carte de réduction modifiée avec succès.");
                         } else {
                             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs.");
@@ -72,6 +75,8 @@ public class Reduction {
                     }
                 }
             });
+
+
 
             mainPanel.add(modifierButton); // Ajouter le bouton "Modifier" au panneau principal
          // Ajouter un bouton Supprimer pour chaque ligne du tableau
@@ -88,21 +93,21 @@ public class Reduction {
                         int confirmation = JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment supprimer cette entrée ?", "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == JOptionPane.YES_OPTION) {
                             Connexion.supprimerCarteReduction(carte, Integer.parseInt(codeAdherent));
-                            // Supprimer la ligne de la JTable
+                            // Remove the row from the table model
                             DefaultTableModel model = (DefaultTableModel) table.getModel();
                             model.removeRow(rowIndex);
                             JOptionPane.showMessageDialog(null, "Carte de réduction supprimée avec succès.");
-                            
-                            
+
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Veuillez sélectionner une carte de réduction à supprimer.");
                     }
                 }
             });
+
             
             mainPanel.add(supprimerButton); // Ajouter le bouton "Supprimer" au panneau principal
-            GoTo.reduction(supprimerButton);
+            
          // Ajouter un bouton Ajouter
             JButton ajouterButton = new JButton("Ajouter");
             ajouterButton.addActionListener(new ActionListener() {
@@ -146,7 +151,6 @@ public class Reduction {
         return mainPanel;
     }
 }
-
 
 
 
