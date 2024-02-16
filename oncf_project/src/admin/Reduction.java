@@ -11,12 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 public class Reduction {
-    public static void window() {
-        JFrame f = new JFrame();
-        f.setTitle("ONCF");
-        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        f.setResizable(false);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public static JPanel window() {
+        
         JPanel mainPanel = new JPanel(new GridBagLayout());
 
         try {
@@ -148,8 +144,7 @@ public class Reduction {
         GoTo.page(retourButton);
 
         Styles.bgColor(mainPanel);
-        f.add(mainPanel);
-        f.setVisible(true);
+        return mainPanel;
     }
 }
 
