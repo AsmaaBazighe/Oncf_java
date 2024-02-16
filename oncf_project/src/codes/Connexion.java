@@ -11,7 +11,8 @@ public class Connexion {
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
 
-            return null; 
+            return null;
+
         }
     }
     
@@ -44,20 +45,42 @@ public class Connexion {
         }
     } 
 
-    public static void modifierTrajet(String GareDepart, String GareArrivee, String Date, int Prix) {
-        try {
-            Statement st = connectONCF();
-            PreparedStatement statement = st.getConnection().prepareStatement("UPDATE train SET Prix = ? WHERE GareDepart = ? AND GareArrivee = ? AND Date = ?");
-            statement.setInt(1, Prix);
-            statement.setString(2, GareDepart);
-            statement.setString(3, GareArrivee);
-            statement.setString(4, Date);
-            statement.executeUpdate();
-            System.out.println("Trajet modifié avec succès.");
-        } catch (SQLException e) {
-            System.out.println("Erreur lors de la modification du trajet : " + e.getMessage());
-        }
-    }
+    public static void modifierTrajet(String ancienGareDepart, String ancienGareArrivee, String ancienneDate,
+            int ancienPrix, String nouveauGareDepart, String nouveauGareArrivee,
+            String nouvelleDate, int nouveauPrix){
+    	try {
+    		Statement st = connectONCF();
+
+    		// Supprimer l'ancien trajet
+    		PreparedStatement deleteStatement = st.getConnection().prepareStatement(
+    		"DELETE FROM train WHERE GareDepart = ? AND GareArrivee = ? AND Date = ? AND Prix = ?");
+    		deleteStatement.setString(1, ancienGareDepart);
+    		deleteStatement.setString(2, ancienGareArrivee);
+    		deleteStatement.setString(3, ancienneDate);
+    		deleteStatement.setInt(4, ancienPrix);
+    		deleteStatement.executeUpdate();
+
+    		// Ajouter le nouveau trajet
+    		PreparedStatement insertStatement = st.getConnection().prepareStatement(
+    		"INSERT INTO train (GareDepart, GareArrivee, Date, Prix) VALUES (?, ?, ?, ?)");
+    		insertStatement.setString(1, nouveauGareDepart);
+    		insertStatement.setString(2, nouveauGareArrivee);
+    		insertStatement.setString(3, nouvelleDate);
+    		insertStatement.setInt(4, nouveauPrix);
+    		insertStatement.executeUpdate();
+
+    		System.out.println("Trajet modifié avec succès.");
+    		} catch (SQLException e) {
+    		System.out.println("Erreur lors de la modification du trajet : " + e.getMessage());
+    		}
+
+}
+
+    		
+
+
+
+
 
     public static void ajouterCarteReduction(String carte, int codeAdherent, int pourcentage) {
         try {
@@ -72,19 +95,29 @@ public class Connexion {
             System.out.println("Erreur lors de l'ajout de la carte de réduction : " + e.getMessage());
         }
     }
-    public static void modifierCarteReduction(String carte, int codeAdherent, int pourcentage) {
+    public static void modifierCarteReduction(String ancienneCarte, int ancienCodeAdherent, int ancienPourcentage, String nouvelleCarte, int nouveauCodeAdherent, int nouveauPourcentage) {
         try {
             Statement st = connectONCF();
-            PreparedStatement statement = st.getConnection().prepareStatement("UPDATE reduction SET Pourcentage = ? WHERE Carte = ? AND CodeAdhérent = ?");
-            statement.setInt(1, pourcentage);
-            statement.setString(2, carte);
-            statement.setInt(3, codeAdherent);
-            statement.executeUpdate();
+            // Supprimer l'ancienne carte de réduction
+            PreparedStatement deleteStatement = st.getConnection().prepareStatement("DELETE FROM reduction WHERE Carte = ? AND CodeAdhérent = ?");
+            deleteStatement.setString(1, ancienneCarte);
+            deleteStatement.setInt(2, ancienCodeAdherent);
+            deleteStatement.executeUpdate();
+
+            // Ajouter la nouvelle carte de réduction
+            PreparedStatement insertStatement = st.getConnection().prepareStatement("INSERT INTO reduction (Carte, CodeAdhérent, Pourcentage) VALUES (?, ?, ?)");
+            insertStatement.setString(1, nouvelleCarte);
+            insertStatement.setInt(2, nouveauCodeAdherent);
+            insertStatement.setInt(3, nouveauPourcentage);
+            insertStatement.executeUpdate();
+
             System.out.println("Carte de réduction modifiée avec succès.");
         } catch (SQLException e) {
             System.out.println("Erreur lors de la modification de la carte de réduction : " + e.getMessage());
         }
     }
+
+
     public static void supprimerCarteReduction(String carte, int codeAdherent) {
         try {
         	Statement st = connectONCF();
@@ -98,4 +131,18 @@ public class Connexion {
 
         }
     }
+    public static void ajouterAdmin(String admin, String motDePasse) {
+        try {
+            Statement st = Connexion.connectONCF();
+            PreparedStatement statement = st.getConnection().prepareStatement("INSERT INTO admin (admin, mot_de_passe) VALUES (?, ?)");
+            statement.setString(1, admin);
+            statement.setString(2, motDePasse);
+            statement.executeUpdate();
+            System.out.println("Admin ajouté avec succès.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout de l'admin : " + e.getMessage());
+        }
+    }
+
+
 }
