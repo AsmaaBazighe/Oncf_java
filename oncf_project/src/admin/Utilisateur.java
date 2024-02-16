@@ -21,8 +21,6 @@ public class Utilisateur {
             while (res.next()) {
                 String user = res.getString(1);
                 String pwd = res.getString(2);
-                JButton modifier = new JButton("Modifier");
-                JButton supprimer = new JButton("Supprimer");
 
                 // Stocker les données dans le tableau
                 data1[rowCount][0] = user;
@@ -35,8 +33,6 @@ public class Utilisateur {
             while (res.next()) {
                 String user = res.getString(1);
                 String pwd = res.getString(2);
-                JButton modifier = new JButton("Modifier");
-                JButton supprimer = new JButton("Supprimer");
 
                 // Stocker les données dans le tableau
                 data2[rowCount][0] = user;
