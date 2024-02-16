@@ -80,9 +80,10 @@ public class GoTo {
 	
 	public static void page(JButton button) {
 		button.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-         		Page.window();
-        	}
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.main(null);
+            }
         });
     }
 	public static void loginAdmin(JButton button) {
@@ -148,9 +149,10 @@ public class GoTo {
 	}
 	public static void choix(JButton button) {
 		button.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Choix.window();
-        	}
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Choix.main(null);
+            }
         });
     }
 	public static void reduction(JButton button) {
