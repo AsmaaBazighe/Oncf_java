@@ -1,11 +1,7 @@
 package admin;
-import codes.*;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
-import admin.*;
+
 
 public class Choix {
 	public static void main(String[] args) {
