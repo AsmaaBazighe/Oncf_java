@@ -50,8 +50,8 @@ public class Login {
 
                 if (authenticated) {
                     JOptionPane.showMessageDialog(null, "Connexion réussie !");
-                    // Go to the next page
-                    GoTo.choix(null); // Replace null with the appropriate parameter if needed
+                   
+                    GoTo.choix(null); 
                 } else {
                     JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect !");
                 }
