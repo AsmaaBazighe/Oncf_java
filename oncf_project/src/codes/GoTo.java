@@ -80,7 +80,7 @@ public class GoTo {
 	
 	public static void page(JButton button) {
 		button.addActionListener(new ActionListener() {
-            @Override
+            
             public void actionPerformed(ActionEvent e) {
                 Main.main(null);
             }
@@ -149,7 +149,7 @@ public class GoTo {
 	}
 	public static void choix(JButton button) {
 		button.addActionListener(new ActionListener() {
-            @Override
+        
             public void actionPerformed(ActionEvent e) {
                 Choix.main(null);
             }
