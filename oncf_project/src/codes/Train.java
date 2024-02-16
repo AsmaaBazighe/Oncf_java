@@ -34,7 +34,9 @@ public class Train {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+        JButton returnButton = new JButton("Retour");
+        GoTo.page(returnButton);
+        mainPanel.add(returnButton);
         Styles.bgColor(mainPanel);
         f.setVisible(true);
     }   
