@@ -134,7 +134,7 @@ public class Connexion {
     public static void ajouterAdmin(String admin, String motDePasse) {
         try {
             Statement st = Connexion.connectONCF();
-            PreparedStatement statement = st.getConnection().prepareStatement("INSERT INTO admin (admin, mot_de_passe) VALUES (?, ?)");
+            PreparedStatement statement = st.getConnection().prepareStatement("INSERT INTO admin (user, pwd) VALUES (?, ?)");
             statement.setString(1, admin);
             statement.setString(2, motDePasse);
             statement.executeUpdate();
@@ -143,6 +143,81 @@ public class Connexion {
             System.out.println("Erreur lors de l'ajout de l'admin : " + e.getMessage());
         }
     }
+    public static void ajouterUtilisateur(String utilisateur, String motDePasse) {
+        try {
+            Statement st = Connexion.connectONCF();
+            PreparedStatement statement = st.getConnection().prepareStatement("INSERT INTO utilisateur (User, Pwd) VALUES (?, ?)");
+            statement.setString(1, utilisateur);
+            statement.setString(2, motDePasse);
+            statement.executeUpdate();
+            System.out.println("Utilisateur ajouté avec succès.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout de l'utilisateur : " + e.getMessage());
+        }
+    }
+
+    public static void supprimerUtilisateur(String username) {
+        try {
+            Statement st = connectONCF();
+            PreparedStatement statement = st.getConnection().prepareStatement("DELETE FROM utilisateur WHERE User = ?");
+            statement.setString(1, username);
+            statement.executeUpdate();
+            System.out.println("Utilisateur supprimé avec succès.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression de l'utilisateur : " + e.getMessage());
+        }
+    }
+    public static void modifierUtilisateur(String ancienUtilisateur, String nouvelUtilisateur, String nouveauMotDePasse) {
+        try {
+            // Connect to the database
+            Statement st = Connexion.connectONCF();
+            
+            // Update the utilisateur details
+            PreparedStatement updateStatement = st.getConnection().prepareStatement(
+                    "UPDATE utilisateur SET User = ?, Pwd = ? WHERE User = ?");
+            updateStatement.setString(1, nouvelUtilisateur);
+            updateStatement.setString(2, nouveauMotDePasse);
+            updateStatement.setString(3, ancienUtilisateur);
+            updateStatement.executeUpdate();
+
+            System.out.println("Utilisateur modifié avec succès.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la modification de l'utilisateur : " + e.getMessage());
+        }
+    }
+
+    public static void supprimerAdmin(String username) {
+        try {
+            Statement st = connectONCF();
+            PreparedStatement statement = st.getConnection().prepareStatement("DELETE FROM admin WHERE user = ?");
+            statement.setString(1, username);
+            statement.executeUpdate();
+            System.out.println("Admin supprimé avec succès.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression de l'admin : " + e.getMessage());
+        }
+    }
+    public static void modifierAdmin(String ancienAdmin, String nouvelAdmin, String nouveauMotDePasse) {
+        try {
+            // Connect to the database
+            Statement st = Connexion.connectONCF();
+            
+            // Update the utilisateur details
+            PreparedStatement updateStatement = st.getConnection().prepareStatement(
+                    "UPDATE admin SET user = ?, pwd = ? WHERE user = ?");
+            updateStatement.setString(1, nouvelAdmin);
+            updateStatement.setString(2, nouveauMotDePasse);
+            updateStatement.setString(3, ancienAdmin);
+            updateStatement.executeUpdate();
+
+            System.out.println("Admin modifié avec succès.");
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la modification de l'utilisateur : " + e.getMessage());
+        }
+    }
+
+
+}
 
 
 }
