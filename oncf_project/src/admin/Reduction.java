@@ -31,7 +31,6 @@ public class Reduction {
                 // Stocker les données dans le tableau
                 data[rowCount][0] = carte;
                 data[rowCount][1] = code;
-                data[rowCount][2] = pourcentage;
 
                 rowCount++;
             }
