@@ -143,6 +143,9 @@ public class Reduction {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        JButton retourButton = new JButton("Retour");
+        mainPanel.add(retourButton);
+        GoTo.page(retourButton);
 
         Styles.bgColor(mainPanel);
         f.add(mainPanel);
