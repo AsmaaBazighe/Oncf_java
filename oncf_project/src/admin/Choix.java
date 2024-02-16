@@ -3,35 +3,64 @@ import codes.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-public class Choix {
-	public static void window() {
-        JFrame f = new JFrame();
-        f.setTitle("ONCF");
-        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        f.setResizable(false);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+import javax.swing.*;
+import java.awt.*;
+import admin.*;
 
-        JPanel mainPanel = new JPanel();
-        JButton b1 = new JButton("Les reduction");
-        JButton b2 = new JButton("Les trains");
-        JButton b3 = new JButton("Les utilisateurs");
-        
-        
-        GoTo.reduction(b1);
-        GoTo.trains(b2);
-        GoTo.utilisateur(b3);
-        
-        Styles.bgColor(mainPanel);
-        Styles.buttonStyle(b1);
-        Styles.buttonStyle(b2);
-        Styles.buttonStyle(b3);
-        Styles.buttonSize(500, 100, b3);
-        Styles.buttonSize(500, 100, b1);
-        Styles.buttonSize(500, 100,b2);
-        Styles.centerButtons(mainPanel, b1,b2,b3);
-        
-        
-        f.setContentPane(mainPanel);
-        f.setVisible(true);
-    }
-}
+public class Choix {
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+            	    public void run() {
+            	        createAndShowGUI();
+            	    }
+            	});
+            }
+
+            private static void createAndShowGUI() {
+            	JFrame f = new JFrame();
+                f.setTitle("ONCF");
+                f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                f.setResizable(false);
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                
+
+                JTabbedPane tabbedPane = new JTabbedPane();
+
+                JPanel userPanel = createUserPanel();
+                JPanel reductionPanel = createReductionPanel();
+                JPanel trainPanel = createTrainPanel();
+
+                tabbedPane.addTab("Recutions",reductionPanel);
+                tabbedPane.addTab("Trains", trainPanel);
+                tabbedPane.addTab("Utilisateurs",userPanel);
+
+                f.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+
+                
+                f.setVisible(true);
+            }
+
+            private static JPanel createReductionPanel() {
+            	JPanel panel = new JPanel();
+        	    panel.setLayout(new BorderLayout());
+        	    JPanel adminContentPanel = Reduction.window();
+        	    panel.add(adminContentPanel, BorderLayout.CENTER);
+        	    return panel;
+            }
+            private static JPanel createTrainPanel() {
+            	JPanel panel = new JPanel();
+        	    panel.setLayout(new BorderLayout());
+        	    JPanel adminContentPanel = Trains.window();
+        	    panel.add(adminContentPanel, BorderLayout.CENTER);
+        	    return panel;
+            }
+            private static JPanel createUserPanel() {
+            	    JPanel panel = new JPanel();
+            	    panel.setLayout(new BorderLayout());
+            	    JPanel userContentPanel = Utilisateur.window();
+            	    panel.add(userContentPanel, BorderLayout.CENTER);
+            	    return panel;
+            	
+            }
+          }
