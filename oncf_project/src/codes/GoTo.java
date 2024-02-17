@@ -147,14 +147,29 @@ public class GoTo {
         	}
         });
 	}
-	public static void choix(JButton button) {
+	public static void choix(JButton button,final JTextField user,final JTextField psw,final ArrayList<User> data) {
 		button.addActionListener(new ActionListener() {
-        
-            public void actionPerformed(ActionEvent e) {
-                Choix.main(null);
+        	public void actionPerformed(ActionEvent e) {
+        		String selectedUser = user.getText().trim();
+        		String enteredPwd = psw.getText().trim();
+        		boolean credentialsCorrect = checkCredentials(selectedUser, enteredPwd);
+        		if (credentialsCorrect) {
+        			Choix.main(null);
+        		}else {
+        			psw.setText("");
+        			user.setText("");
+        		}
+        	}
+            private boolean checkCredentials(String user, String code) {
+                for (User userData : data) {
+                    if (userData.getUsername().equals(user) && userData.getPassword().equals(code)) {
+                        return true;
+                    }
+                }
+                return false;
             }
         });
-    }
+	}
 	public static void reduction(JButton button) {
 		button.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
