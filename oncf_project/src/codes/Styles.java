@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Styles {
 	public static void buttonStyle(JButton button) {
-            button.setBackground(new Color(240, 168, 17));
+            button.setBackground(new Color(224,224,236));
             button.setForeground(new Color(0, 0, 0));
             button.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
         
@@ -17,7 +17,7 @@ public class Styles {
 
     public static void bgColor(JPanel panel) {
         panel.setLayout(new GridBagLayout());
-        panel.setBackground(new Color(0, 0, 0));
+        panel.setBackground(new Color(176,178,207));
 
     }
 
@@ -212,7 +212,7 @@ public class Styles {
     }
     
     public static void organiserPay(JPanel mainPanel,JButton submitButton,JTextField user,JTextField psw) {
-    	Font labelFont = new Font("Comic Sans MS", Font.BOLD, 14);
+    	Font labelFont = new Font("verdana", Font.BOLD, 14);
         Color labelColor = new Color(255, 255, 255); 
     	GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -224,7 +224,7 @@ public class Styles {
         utiLabel.setForeground(labelColor);
         mainPanel.add(utiLabel, gbc);
         gbc.gridx++;
-        user.setBackground(new Color(240, 168, 17));
+        user.setBackground(new Color(253,247,248));
         user.setForeground(new Color(0, 0, 0));
         mainPanel.add(user, gbc);
         gbc.gridy++;
@@ -234,7 +234,7 @@ public class Styles {
         mdpLabel.setForeground(labelColor);
         mainPanel.add(mdpLabel, gbc);
         gbc.gridx++;
-        psw.setBackground(new Color(240, 168, 17));
+        psw.setBackground(new Color(253,247,248));
         psw.setForeground(new Color(0, 0, 0));
         mainPanel.add(psw, gbc);
         
