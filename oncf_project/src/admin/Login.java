@@ -1,17 +1,15 @@
 package admin;
-
-import codes.*;
 import java.sql.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import codes.*;
 
 
 public class Login {
 	
     public static JPanel window() {
-        
-
+       
         JPanel mainPanel = new JPanel(new GridBagLayout());
         Styles.bgColor(mainPanel);
 
@@ -21,7 +19,7 @@ public class Login {
         Statement st = Connexion.connectONCF();
         final ArrayList<User> data = new ArrayList<User>();
         try {
-            ResultSet res = st.executeQuery("select * from a");
+            ResultSet res = st.executeQuery("select * from admin");
             while (res.next()) {
             	String username = res.getString(1);
                 String password = res.getString(2);
@@ -38,18 +36,14 @@ public class Login {
         final JPasswordField psw = new JPasswordField();
         psw.setColumns(10);
         JButton submitButton = new JButton("Soumettre");
+        GoTo.choix(submitButton,user,psw,data);
         Styles.organiserPay(mainPanel,submitButton,user,psw);
-        GoTo.choix(submitButton);
-        
         return mainPanel;
+        
+        
     }
     
     
 
     
-} 
-    
-
-    
-
-
+}
