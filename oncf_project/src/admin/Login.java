@@ -1,4 +1,4 @@
-dmin;
+package admin;
 
 import codes.*;
 import java.sql.*;
